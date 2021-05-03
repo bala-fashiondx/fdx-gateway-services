@@ -1,0 +1,6 @@
+dist
+coverage
+api-docs
+*.json
+config.js
+
