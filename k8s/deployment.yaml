@@ -2,27 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: recommendation
-  name: recommendation
+    app: gateway
+  name: gateway
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: recommendation
+      app: gateway
   template:
     metadata:
       labels:
-        app: recommendation
+        app: gateway
     spec:
       containers:
-      - image: gcr.io/fdx-3d-build-253407/recommendation:latest
-        name: recommendation
+      - image: gcr.io/fdx-3d-build-253407/gateway:latest
+        name: gateway
         env:
-        - name: ELASTICSEARCH_CLUSTER_URL
+        - name: ECOMM_SERVICE_URL
           valueFrom:
             configMapKeyRef:
               name: env-var
-              key: ELASTICSEARCH_CLUSTER_URL
+              key: ECOMM_SERVICE_URL
         - name: DB_HOST
           valueFrom:
             configMapKeyRef:
@@ -43,9 +43,7 @@ spec:
             configMapKeyRef:
               name: env-var
               key: DB_PASS
-        - name: PORT
-          value: 8081
         ports:
-        - containerPort: 3002
+        - containerPort: 8081
       nodeSelector:
         cloud.google.com/gke-nodepool : micro-service-node
