@@ -43,6 +43,8 @@ spec:
             configMapKeyRef:
               name: env-var
               key: DB_PASS
+        - name: PORT
+          value: 8081
         ports:
         - containerPort: 3002
       nodeSelector:

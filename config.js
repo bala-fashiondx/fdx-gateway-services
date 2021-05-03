@@ -33,7 +33,7 @@ const config = convict({
         doc: 'Ecomm Base URL',
         format: 'url',
         default: 'http://fdx-ap-south-1-dev-lb-30a06202197f4692.elb.ap-south-1.amazonaws.com:3008/',
-        env: 'ELASTICSEARCH_CLUSTER_URL',
+        env: 'ECOMM_SERVICE_URL',
       }
     },
   },
