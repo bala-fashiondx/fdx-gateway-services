@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: recommendation
+  name: recommendation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: recommendation
+  template:
+    metadata:
+      labels:
+        app: recommendation
+    spec:
+      containers:
+      - image: gcr.io/fdx-3d-build-253407/recommendation:latest
+        name: recommendation
+        env:
+        - name: ELASTICSEARCH_CLUSTER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-var
+              key: ELASTICSEARCH_CLUSTER_URL
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-var
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: env-var
+              key: DB_NAME 
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: env-var
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: env-var
+              key: DB_PASS
+        ports:
+        - containerPort: 3002
+      nodeSelector:
+        cloud.google.com/gke-nodepool : micro-service-node

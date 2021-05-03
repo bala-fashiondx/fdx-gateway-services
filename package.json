@@ -1,0 +1,75 @@
+{
+  "name": "recommendation-service",
+  "version": "1.0.0",
+  "description": "A service to serve online recommendations using ElasticSearch.",
+  "private": true,
+  "keywords": [
+    "loopback-application",
+    "loopback",
+    "recommendation-service"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "scripts": {
+    "build:apidocs": "lb-apidocs",
+    "build": "npm run clean && lb-tsc es2017 --outDir dist",
+    "build:watch": "lb-tsc --watch",
+    "clean": "lb-clean dist",
+    "lint": "npm run prettier:check && npm run tslint",
+    "lint:fix": "npm run tslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "tslint": "lb-tslint",
+    "tslint:fix": "npm run tslint -- --fix",
+    "pretest": "npm run build",
+    "test": "lb-mocha --exit --allow-console-logs \"dist/__tests__/integration/\" \"dist/__tests__/unit/\"",
+    "posttest": "npm run lint",
+    "test:dev": "export NODE_ENV=test && npm run pretest && lb-nyc lb-mocha --exit --allow-console-logs \"dist/__tests__/\" ",
+    "opn:coverage": "opn coverage/index.html",
+    "docker:build": "docker build -t $npm_package_name:linen-club .",
+    "docker:run": "docker run --name=$npm_package_name -p 3000:3000 -d $npm_package_name",
+    "migrate": "node ./dist/migrate",
+    "prestart": "npm run build",
+    "start": "node .",
+    "prepublishOnly": "npm run test"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "Rohit Markam",
+  "license": "UNLICENSED",
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@fashiondx/fdx-logger-module": "0.0.4",
+    "@loopback/boot": "^1.4.4",
+    "@loopback/context": "^1.20.2",
+    "@loopback/core": "^1.8.5",
+    "@loopback/openapi-v3": "^1.7.0",
+    "@loopback/repository": "^1.8.2",
+    "@loopback/rest": "^1.16.3",
+    "@loopback/rest-explorer": "^1.2.5",
+    "@loopback/service-proxy": "^1.2.5",
+    "convict": "^5.0.0",
+    "elastic-builder": "^2.6.1",
+    "loopback-connector-rest": "^3.4.2"
+  },
+  "devDependencies": {
+    "@loopback/build": "^1.7.1",
+    "@loopback/testlab": "^1.6.3",
+    "@loopback/tslint-config": "^2.1.0",
+    "@types/node": "^10.14.12",
+    "opn-cli": "^4.1.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
+}

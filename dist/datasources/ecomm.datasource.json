@@ -1,0 +1,88 @@
+{
+    "name": "ecomm_service",
+    "connector": "rest",
+    "base_url": "${base_url}",
+    "crud": false,
+    "options": {
+        "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+        }
+    },
+    "operations": [
+        {
+            "template": {
+                "method": "GET",
+                "url": "${base_url}/health-check",
+                "responsePath": ""
+            },
+            "functions": {
+                "checkHealth": []
+            }
+        },
+        {
+            "template": {
+                "method": "GET",
+                "url": "${base_url}/ecomm/{merchant_id}/{portfolio}/getCategory",
+                "responsePath": ""
+            },
+            "functions": {
+                "categories": ["merchant_id", "portfolio"]
+            }
+        },
+        {
+            "template": {
+                "method": "GET",
+                "url": "${base_url}/ecomm/{merchant_id}/{portfolio}/getFilters?category={category}",
+                "responsePath": ""
+            },
+            "functions": {
+                "filters": ["merchant_id", "portfolio", "category"]
+            }
+        },
+        {
+            "template": {
+                "method": "POST",
+                "url": "${base_url}/ecomm/{merchant_id}/profile_form",
+                "body": "{reqObj}",
+                "responsePath": ""
+            },
+            "functions": {
+                "profile_form": ["reqObj", "merchant_id"]
+            }
+        },
+        {
+            "template": {
+                "method": "POST",
+                "url": "${base_url}/ecomm/{merchant_id}/body_profile",
+                "body": "{reqObj}",
+                "responsePath": ""
+            },
+            "functions": {
+                "body_profile": ["reqObj", "merchant_id"]
+            }
+        },
+        {
+            "template": {
+                "method": "POST",
+                "url": "${base_url}/ecomm/{merchant_id}/mix_match/type/{type}",
+                "body": "{reqObj}",
+                "responsePath": ""
+            },
+            "functions": {
+                "mix_match": ["reqObj", "merchant_id", "type"]
+            }
+        },
+        {
+            "template": {
+                "method": "POST",
+                "url": "${base_url}/ecomm/{merchant_id}/products/type/{type}",
+                "body": "{reqObj}",
+                "responsePath": ""
+            },
+            "functions": {
+                "get_products": ["reqObj", "merchant_id", "type"]
+            }
+        }
+    ]
+}
